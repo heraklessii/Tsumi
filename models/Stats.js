@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 
 const messageStatsSchema = new Schema({
-  userId: String,
-  guildId: String,
+  guildId: { type: String, required: true, unique: true },
+  userId: { type: String, required: true },
   totalMessages: { type: Number, default: 0 },
   dailyMessages: { type: Map, of: Number, default: {} },
   weeklyMessages: { type: Map, of: Number, default: {} },
@@ -29,13 +29,8 @@ const messageStatsSchema = new Schema({
   },
   lastJoin: { type: Date },
 },
-{
-  timestamps: true
-});
-
-messageStatsSchema.index(
-  { guildId: 1, userId: 1 },
-  { unique: true }
-);
+  {
+    timestamps: true
+  });
 
 module.exports = model('Stats', messageStatsSchema);

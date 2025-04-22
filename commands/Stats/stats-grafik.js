@@ -5,7 +5,7 @@ const moment = require('moment');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('istatistik-grafik')
+    .setName('stats-grafik')
     .setDescription('Kullanıcının günlük mesaj/ses geçmişini grafik olarak gösterir.')
     .addUserOption(opt =>
       opt.setName('kullanıcı')

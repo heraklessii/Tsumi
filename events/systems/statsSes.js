@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Events, EmbedBuilder } = require('discord.js');
+const { Events } = require('discord.js');
 const Stats = require('../../models/Stats');
 const StatsSettings = require('../../models/StatsSettings');
 const moment = require('moment');

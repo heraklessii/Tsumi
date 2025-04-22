@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
     category: "Kurucu",
@@ -13,7 +14,7 @@ module.exports = {
 
     run: async (client, interaction) => {
 
-        if (!["269480080823025664", "1010577301966168085"].includes(interaction.user.id)) return interaction.reply({
+        if (interaction.user.id !== process.env.DEVELOPERID) return interaction.reply({
             content: ":x: | Bu komut bot sahibine özeldir!",
             ephemeral: true,
         })

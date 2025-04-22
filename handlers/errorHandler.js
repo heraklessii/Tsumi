@@ -5,7 +5,7 @@ module.exports = async (client) => {
     const createEmbed = (title, description) => {
         return new EmbedBuilder()
             .setColor(client.color)
-            .setFooter({ text: "Tsumi Anti-Crash Sistemi" })
+            .setFooter({ text: "Tsumi Anti-Crash" })
             .setTitle(title)
             .setDescription(description);
     };

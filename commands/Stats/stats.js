@@ -10,7 +10,7 @@ const moment = require('moment');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('istatistik')
+        .setName('stats')
         .setDescription('Kullanıcının mesaj ve ses istatistiklerini gösterir.')
         .addUserOption(opt =>
             opt.setName('kullanıcı')

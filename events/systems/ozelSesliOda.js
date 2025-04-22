@@ -1,11 +1,4 @@
-const {
-    ChannelType,
-    ActionRowBuilder,
-    StringSelectMenuBuilder,
-    EmbedBuilder,
-    Events,
-    PermissionsBitField
-} = require('discord.js');
+const { ChannelType, ActionRowBuilder, StringSelectMenuBuilder, EmbedBuilder, Events, PermissionsBitField } = require('discord.js');
 const VoiceRoom = require('../../models/VoiceRoom');
 const VoiceSettings = require('../../models/VoiceSettings');
 
@@ -13,12 +6,11 @@ module.exports = {
     name: Events.VoiceStateUpdate,
     async execute(oldState, newState) {
 
-        // ayarları oku
         const settingsGuild = await VoiceSettings.findOne({ guildId: newState.guild.id }) || {};
         const { sistemDurumu, categoryId, joinChannelId } = settingsGuild;
         if (!sistemDurumu || !joinChannelId) return;
 
-        // **1️⃣** Kişi join kanalına girerse...
+        // Kişi join kanalına girerse
         if (newState.channelId === joinChannelId) {
             // önceki odası var mı?
             let persistentData = await VoiceRoom.findOne({ ownerId: newState.member.id }) || {};
@@ -148,7 +140,7 @@ module.exports = {
             }
         }
 
-        // **4️⃣** Oda boş kalırsa silme mantığı
+        // Oda boş kalırsa
         if (oldState.channelId && oldState.channelId !== joinChannelId) {
             const oldCh = oldState.guild.channels.cache.get(oldState.channelId);
             if (oldCh && oldCh.type === ChannelType.GuildVoice) {
@@ -171,5 +163,6 @@ module.exports = {
                 }
             }
         }
+
     }
 };

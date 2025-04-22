@@ -1,25 +1,39 @@
-const fs = require("fs").promises;
-const path = require("path");
+const fs    = require("fs").promises;
+const path  = require("path");
+const chalk = require("chalk");
+const boxen = require("boxen").default;
 const slash = require("./slash.js");
 
+
 module.exports = async (client) => {
-    let cmdArray = [];
+  const all = [];
+  const categories = await fs.readdir("./commands");
 
-    const categories = await fs.readdir("./commands");
+  for (const category of categories) {
+    const files = await fs.readdir(path.join("./commands", category));
+    const jsFiles = files.filter(f => f.endsWith(".js"));
 
-    await Promise.all(categories.map(async (category) => {
-        const commandFiles = await fs.readdir(path.join("./commands", category));
+    const header = `${chalk.cyan.bold("📁 " + category)} klasöründen ${chalk.green(jsFiles.length)} komut yüklendi`;
+    const list   = jsFiles.map(f => `• ${chalk.yellow(f.replace(".js",""))}`).join("\n");
 
-        const jsFiles = commandFiles.filter((file) => file.endsWith(".js"));
-        console.log(`${category} | klasöründen ${jsFiles.length} komut yükleniyor.`);
+    console.log(
+      boxen(
+        `${header}\n${list}`,
+        {
+          padding: [0, 1],   
+          margin: 0,          
+          borderColor: "cyan",
+          borderStyle: "round"
+        }
+      )
+    );
 
-        await Promise.all(jsFiles.map(async (cmd) => {
-            const command = require(`../commands/${category}/${cmd}`);
-            client.commands.set(command.data.name, command);
-            cmdArray.push(command);
-        }));
-    }));
+    for (const file of jsFiles) {
+      const cmd = require(`../commands/${category}/${file}`);
+      client.commands.set(cmd.data.name, cmd);
+      all.push(cmd.data.toJSON());
+    }
+  }
 
-    const finalArray = cmdArray.map((e) => e.data.toJSON());
-    await slash.register(client.user.id, finalArray);
+  await slash.register(client.user.id, all);
 };

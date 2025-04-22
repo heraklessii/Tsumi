@@ -14,7 +14,7 @@ const moment = require('moment');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('istatistik-bakım')
+        .setName('stats-admin')
         .setDescription('Eski günlük/haftalık kayıtları temizler.')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     run: async (client, interaction) => {
@@ -153,7 +153,9 @@ module.exports = {
                     for (const [ch, data] of s.channelVoice)
                         for (const k of Array.from(data.daily.keys()))
                             if (k < cutoffDate) data.daily.delete(k);
-                } else {
+                } 
+                
+                else {
                     // Haftalık temizle
                     for (const key of Array.from(s.weeklyMessages.keys()))
                         if (parseInt(key) < parseInt(cutoffWeek)) s.weeklyMessages.delete(key);
@@ -175,7 +177,6 @@ module.exports = {
             });
         });
 
-        // Timeout: menüyü kapat
         selectCollector.on('end', () => msg.edit({ components: [] }).catch(() => { }));
         buttonCollector.on('end', () => msg.edit({ components: [] }).catch(() => { }));
     }
