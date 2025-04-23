@@ -17,7 +17,7 @@ const mongoose = require('mongoose');
 
 module.exports = (client) => {
 
-    mongoose.connect("mongodb://localhost:27017/")
+    mongoose.connect(process.env.MONGO || "mongodb://localhost:27017/")
         .then(() => {
             console.log('MongoDB’ye başarıyla bağlanıldı!');
         })
