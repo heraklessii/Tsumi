@@ -14,7 +14,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const mongoose = require('mongoose');
-
 const statsSettingsSchema = new mongoose.Schema({
   guildId: { type: String, required: true, unique: true },
   sistemDurumu: { type: Boolean, default: false },

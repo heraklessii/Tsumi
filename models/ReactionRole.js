@@ -14,7 +14,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const mongoose = require("mongoose");
-
 const messageConfigSchema = new mongoose.Schema({
   messageId: {
     type: String,

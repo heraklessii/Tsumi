@@ -15,7 +15,6 @@
 
 const { SlashCommandBuilder } = require("discord.js");
 const Afk = require("../../models/AfkData");
-
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("afk")
@@ -23,13 +22,11 @@ module.exports = {
         .addStringOption(opt =>
             opt.setName("sebep")
                 .setDescription("AFK sebebiniz")
-                .setRequired(false)
-        )
+                .setRequired(false))
         .addBooleanOption(opt =>
             opt.setName("nickdegis")
                 .setDescription("Nickname'e AFK | eklensin mi?")
-                .setRequired(false)
-        ),
+                .setRequired(false)),
 
     run: async (client, interaction) => {
 
@@ -94,5 +91,6 @@ module.exports = {
             content: `AFK moduna geçtiniz. Sebep: **${reason}**`,
             ephemeral: true
         });
+        
     }
 };

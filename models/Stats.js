@@ -14,7 +14,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const { Schema, model } = require('mongoose');
-
 const messageStatsSchema = new Schema({
   guildId: { type: String, required: true, unique: true },
   userId: { type: String, required: true },

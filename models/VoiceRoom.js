@@ -14,7 +14,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const mongoose = require('mongoose');
-
 const voiceRoomSchema = new mongoose.Schema({
   ownerId: { type: String, required: true},
   channelId: { type: String },

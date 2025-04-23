@@ -14,7 +14,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const mongoose = require("mongoose");
-
 const afkSchema = new mongoose.Schema({
   userID: { type: String, required: true, unique: true },
   reason: { type: String, default: "AFK" },

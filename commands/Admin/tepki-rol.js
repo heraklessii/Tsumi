@@ -107,6 +107,7 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
   run: async (client, interaction) => {
+    
     const guildId = interaction.guild.id;
     const sub = interaction.options.getSubcommand();
 

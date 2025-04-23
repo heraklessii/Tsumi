@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 const {
   SlashCommandBuilder,
   EmbedBuilder,
@@ -29,6 +28,7 @@ const {
 const VoiceSettings = require('../../models/VoiceSettings');
 const StatsSettings = require('../../models/StatsSettings');
 const LogsSettings = require('../../models/LogsSettings');
+const ReputationSettings = require('../../models/ReputationSettings');
 
 module.exports = {
   category: "Admin",
@@ -55,7 +55,11 @@ module.exports = {
         new StringSelectMenuOptionBuilder()
           .setLabel('📊 Logs Sistemi')
           .setDescription('Sistemi ayarlamak için tıklayın.')
-          .setValue('s_logs')
+          .setValue('s_logs'),
+        new StringSelectMenuOptionBuilder()
+          .setLabel('🔰 Rep Sistemi')
+          .setDescription('Rep sistemi ayarlarını yapılandırın.')
+          .setValue('s_rep')
       );
 
     const row = new ActionRowBuilder().addComponents(selectMenu);
@@ -68,17 +72,16 @@ Ayarlamak istediğiniz sistemi aşağıdaki listeden seçin.
 Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
       .setFooter({ text: `Bu menü 5 dakika sonra devre dışı olacaktır.` });
 
-    // Ephemeral olarak bildir, gerçek menüyü kanala gönder
     await interaction.reply({
       content: '✅ | Ayar menüsü gönderildi.',
       ephemeral: true
     });
+
     const ayar = await interaction.channel.send({
       embeds: [mainEmbed],
       components: [row]
     });
 
-    // Collector’lar
     const menuCollector = ayar.createMessageComponentCollector({
       componentType: ComponentType.StringSelect,
       time: 300000
@@ -174,6 +177,7 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
         return ayar.edit({ embeds: [statsEmbed], components: [statsRow] });
       }
 
+      // ---- Logs Sistemi
       else if (i.values[0] === 's_logs') {
         // DB’den ayarları çek / yoksa yarat
         let cfg = await LogsSettings.findOne({ guildId: interaction.guild.id });
@@ -208,6 +212,37 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
           .setFooter({ text: `Bu menü 5 dakika sonra devre dışı olacaktır.` });
 
         return ayar.edit({ embeds: [logsEmbed], components: [logsRow] });
+      }
+
+      // --- Rep Sistemi ---
+      else if (i.values[0] === 's_rep') {
+        let cfg = await ReputationSettings.findOne({ guildId: interaction.guild.id });
+        if (!cfg) cfg = await ReputationSettings.create({ guildId: interaction.guild.id });
+
+        const sDurum = cfg.sistemDurumu ? '✅' : '❌';
+        const topCh = cfg.topChannelId ? `<#${cfg.topChannelId}>` : '❌';
+
+        const repRow = new ActionRowBuilder().addComponents(
+          new ButtonBuilder()
+            .setCustomId('rp_sistemdurumu')
+            .setLabel('Sistemi Aç/Kapat')
+            .setStyle(cfg.sistemDurumu ? ButtonStyle.Success : ButtonStyle.Danger),
+          new ButtonBuilder()
+            .setCustomId('rp_topchannel')
+            .setLabel('Top Kanalı Ayarla')
+            .setStyle(ButtonStyle.Secondary)
+        );
+
+        const repEmbed = new EmbedBuilder()
+          .setColor(client.color)
+          .setTitle('`🔰` REP SİSTEMİ AYARLARI')
+          .addFields(
+            { name: 'Sistem Durumu', value: sDurum, inline: true },
+            { name: 'Top Kanalı', value: topCh, inline: true }
+          )
+          .setFooter({ text: 'Bu menü 5 dakika sonra devre dışı olacaktır.' });
+
+        return ayar.edit({ embeds: [repEmbed], components: [repRow] });
       }
 
     });
@@ -399,6 +434,35 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
             { upsert: true }
           );
           return i.followUp({ content: `✅ | Ayarlandı: <#${channelId}>`, ephemeral: true });
+        } catch {
+          return i.followUp({ content: '❌ | Geçerli bir kanal girilmedi veya süre doldu.', ephemeral: true });
+        }
+      }
+
+      // --- Rep Sistemi ---
+      if (i.customId === 'rp_sistemdurumu') {
+        const cfg = await ReputationSettings.findOne({ guildId: interaction.guild.id });
+        cfg.sistemDurumu = !cfg.sistemDurumu;
+        await cfg.save();
+        return i.editReply({ content: `\`🔰\` | Rep Sistemi ${cfg.sistemDurumu ? 'aktif' : 'pasif'}.`, ephemeral: true });
+      }
+
+      if (i.customId === 'rp_topchannel') {
+        await i.followUp({ content: 'Top kanalını 30 saniye içinde etiketleyin veya ID girin.', ephemeral: true });
+        const filter = m => m.author.id === interaction.user.id;
+        try {
+          const collected = await interaction.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] });
+          const input = collected.first().content.trim();
+          const mention = input.match(/^<#(\d+)>$/);
+          const channelId = mention ? mention[1] : /^\d+$/.test(input) ? input : null;
+          if (!channelId) throw new Error();
+
+          await ReputationSettings.findOneAndUpdate(
+            { guildId: interaction.guild.id },
+            { $set: { topChannelId: channelId } },
+            { upsert: true }
+          );
+          return i.followUp({ content: `✅ | Top kanalı başarıyla ayarlandı: <#${channelId}>`, ephemeral: true });
         } catch {
           return i.followUp({ content: '❌ | Geçerli bir kanal girilmedi veya süre doldu.', ephemeral: true });
         }

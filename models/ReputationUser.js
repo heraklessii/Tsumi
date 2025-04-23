@@ -13,12 +13,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const mongoose = require('mongoose');
-const voiceSettingsSchema = new mongoose.Schema({
-  guildId: { type: String, required: true, unique: true },
-  sistemDurumu: { type: Boolean, default: false },
-  categoryId: { type: String },
-  joinChannelId: { type: String }
+const { Schema, model } = require("mongoose");
+const repUserSchema = new Schema({
+  userId: { type: String, required: true },
+  guildId: { type: String, required: true },
+  points: { type: Number, default: 0 },
+  lastRepGivenAt: { type: Date, default: null },
+  lastGiven: { type: Map, of: Date, default: {} },
 });
 
-module.exports = mongoose.model('VoiceSettings', voiceSettingsSchema);
+module.exports = model("ReputationUser", repUserSchema);
