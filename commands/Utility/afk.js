@@ -35,7 +35,6 @@ module.exports = {
         const nickChg = interaction.options.getBoolean("nickdegis") || false;
 
         const existing = await Afk.findOne({ userID });
-        // — Eğer zaten AFK ise: çıkışı yap ve süreyi hesapla —
         if (existing) {
             const now = Date.now();
             const diffMs = now - existing.timestamp;
@@ -50,7 +49,6 @@ module.exports = {
 
             await Afk.deleteOne({ userID });
 
-            // Nick'i orijinal hale döndür
             try {
                 const member = interaction.member;
                 const original = member.displayName.replace(/^AFK \|\s?/, "");
@@ -60,7 +58,7 @@ module.exports = {
             } catch (e) { /* yetki yoksa atla */ }
 
             return interaction.reply({
-                content: `AFK modundan çıktınız. Toplam AFK süreniz: **${human}**.`,
+                content: `✅ | AFK modundan çıktınız. Toplam **AFK** süreniz: **${human}**.`,
                 ephemeral: true
             });
         }
@@ -75,22 +73,22 @@ module.exports = {
                     await member.setNickname(newNick);
                 } catch (e) {
                     return interaction.reply({
-                        content: "Nickname güncellenemedi, yetkim yetersiz olabilir.",
+                        content: ":x: | Nickname güncellenemedi, yetkim yetersiz olabilir. Ancak yine de **AFK** oldunuz.",
                         ephemeral: true
                     });
                 }
             } else {
                 return interaction.reply({
-                    content: "Nickname çok uzun, `AFK |` eklenemedi.",
+                    content: ":x: | Nickname çok uzun, `AFK |` eklenemedi. Ancak yine de **AFK** oldunuz.",
                     ephemeral: true
                 });
             }
         }
 
         return interaction.reply({
-            content: `AFK moduna geçtiniz. Sebep: **${reason}**`,
+            content: `✅ | AFK moduna geçtiniz. Sebep: **${reason}**`,
             ephemeral: true
         });
-        
+
     }
 };

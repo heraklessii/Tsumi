@@ -15,7 +15,6 @@
 
 const { Events, EmbedBuilder } = require('discord.js');
 const ReactionRole = require('../../models/ReactionRole');
-
 module.exports = {
     name: Events.MessageReactionRemove,
     async execute(reaction, user) {

@@ -13,22 +13,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-module.exports = {
-    category: "Info",
-    cooldown: 5,
-    data: new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('Botun güncel gecikmesini öğrenirsiniz.'),
+const mongoose = require('mongoose');
+const premiumGuildSchema = new mongoose.Schema({
+    guildId: { type: String, unique: true, required: true },
+    code: { type: String, required: true },
+    expiresAt: { type: Date, required: true }
+});
 
-    run: async (client, interaction) => {
-        const ping = client.ws.ping;
-        const embed = new EmbedBuilder()
-            .setColor(client.color)
-            .setTitle('🏓 Pong!')
-            .setDescription(`Bot gecikmesi: **${ping}ms**`)
-            .setTimestamp();
-
-        return interaction.reply({ embeds: [embed], ephemeral: true });
-    },
-};
+module.exports = mongoose.model('PremiumGuild', premiumGuildSchema);

@@ -28,17 +28,17 @@ module.exports = {
 
         const giverId = interaction.user.id;
         const receiver = interaction.options.getUser('kişi');
-        if (receiver.bot) return interaction.reply({ content: 'Botlara rep veremezsiniz!', ephemeral: true });
-        if (receiver.id === giverId) return interaction.reply({ content: 'Kendinize rep veremezsiniz!', ephemeral: true });
+        if (receiver.bot) return interaction.reply({ content: ':x: | Botlara **rep** veremezsiniz!', ephemeral: true });
+        if (receiver.id === giverId) return interaction.reply({ content: ':x: | Kendinize **rep** veremezsiniz!', ephemeral: true });
 
         const setting = await ReputationSettings.findOne({ guildId: interaction.guild.id });
-        if (!setting?.sistemDurumu) return interaction.reply({ content: 'Rep sistemi kapalı.', ephemeral: true });
+        if (!setting?.sistemDurumu) return interaction.reply({ content: ':x: | Rep sistemi kapalı.', ephemeral: true });
 
         const now = new Date();
         let giver = await ReputationUser.findOne({ userId: giverId, guildId: interaction.guild.id });
         if (!giver) giver = new ReputationUser({ userId: giverId, guildId: interaction.guild.id });
         else if (giver.lastRepGivenAt && now - giver.lastRepGivenAt < 1000 * 60 * 60)
-            return interaction.reply({ content: 'Bir saatte sadece bir kere rep verebilirsiniz!', ephemeral: true });
+            return interaction.reply({ content: ':x: | Bir saatte sadece bir kere **rep** verebilirsiniz!', ephemeral: true });
 
         let recUser = await ReputationUser.findOne({ userId: receiver.id, guildId: interaction.guild.id });
         if (!recUser) recUser = new ReputationUser({ userId: receiver.id, guildId: interaction.guild.id });
@@ -47,7 +47,7 @@ module.exports = {
         giver.lastRepGivenAt = now;
         await Promise.all([recUser.save(), giver.save()]);
 
-        await interaction.reply({ content: `<@${receiver.id}> kullanıcısına rep verildi!`, ephemeral: true });
+        await interaction.reply({ content: `✅ | <@${receiver.id}> kullanıcısına rep verildi!`, ephemeral: false });
         await updateLeaderboard(interaction.guild, setting.topChannelId);
     }
 };

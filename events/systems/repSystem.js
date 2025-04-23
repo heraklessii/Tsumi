@@ -36,7 +36,11 @@ module.exports = {
       const receiverId = referenced.author.id;
 
       if (giverId === receiverId) {
-        return message.reply({ content: "Kendinize rep veremezsiniz!", ephemeral: true });
+        return message.reply({ content: ":x: | Kendinize rep veremezsiniz!" }).then(msg => {
+          setTimeout(() => {
+            msg.delete().catch(() => {});
+          }, 3000);
+        })
       }
 
       const now = new Date();
@@ -45,7 +49,11 @@ module.exports = {
       if (!giver) {
         giver = new ReputationUser({ userId: giverId, guildId: message.guild.id });
       } else if (giver.lastRepGivenAt && now - giver.lastRepGivenAt < 1000 * 60 * 60) {
-        return message.reply({ content: "Bir saatte sadece bir kere rep verebilirsiniz!", ephemeral: true });
+        return message.reply({ content: ":x: | Bir saatte sadece bir kere rep verebilirsiniz!" }).then(msg => {
+          setTimeout(() => {
+            msg.delete().catch(() => {});
+          }, 3000);
+        })
       }
 
       // Alan kullanıcıyı al veya oluştur
@@ -81,12 +89,11 @@ module.exports = {
 
       await message.react("⭐");
       await updateLeaderboard(message.guild, topChannel);
-    } catch (error) {}
+    } catch (error) { }
 
   }
 };
 
-// Leaderboard güncelleme fonksiyonu
 async function updateLeaderboard(guild, channelId) {
   const repUsers = await ReputationUser.find({ guildId: guild.id })
     .sort({ points: -1 })

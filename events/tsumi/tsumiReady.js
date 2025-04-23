@@ -19,8 +19,8 @@ const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
 const cron = require('node-cron');
 const Stats = require('../../models/Stats');
 const StatsSettings = require('../../models/StatsSettings');
+const PremiumGuild = require('../../models/PremiumGuild');
 const moment = require('moment');
-
 module.exports = {
 	name: Events.ClientReady,
 	async execute(client) {
@@ -36,6 +36,17 @@ module.exports = {
 			i = (i + 1) % activities.length;
 		}, 120000);
 
+		async function checkExpired() {
+			const now = new Date();
+			const expired = await PremiumGuild.find({ expiresAt: { $lt: now } });
+			for (const entry of expired) {
+				await PremiumGuild.deleteOne({ guildId: entry.guildId });
+			}
+		}
+
+		checkExpired();
+		setInterval(checkExpired, 60 * 60 * 1000); // Her bir saatte bir premium bitme kontrolü.
+		
 		console.log(chalk.blue(`${client.user.tag} olarak giriş yaptım ve göreve hazırım!`));
 
 		cron.schedule('0 3 * * *', async () => {

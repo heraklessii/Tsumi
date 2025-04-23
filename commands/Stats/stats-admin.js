@@ -35,7 +35,6 @@ module.exports = {
     run: async (client, interaction) => {
         const state = { target: null, userId: null, period: null, threshold: null };
 
-        // ————————————— 1️⃣ Hedef Seçimi —————————————
         const embed1 = new EmbedBuilder()
             .setTitle('🔧 Temizleme Hedefi Seçin')
             .setDescription('⤷ Sunucu mu yoksa Kullanıcı mı için işlem yapacaksınız?')
@@ -56,7 +55,6 @@ module.exports = {
             fetchReply: true
         });
 
-        // Collector: StringSelect (Hedef)
         const selectCollector = msg.createMessageComponentCollector({
             componentType: ComponentType.StringSelect,
             filter: i => i.user.id === interaction.user.id,
@@ -89,7 +87,6 @@ module.exports = {
                 }
             }
 
-            // ————————————— 2️⃣ Periyot Seçimi —————————————
             const embed2 = new EmbedBuilder()
                 .setTitle('⏲️ Temizleme Periyodu Seçin')
                 .setDescription('⤷ **Genel**, **Günlük** veya **Haftalık** verileri temizleyebilirsiniz.')
@@ -103,7 +100,6 @@ module.exports = {
             return msg.edit({ embeds: [embed2], components: [row2] });
         });
 
-        // Collector: Butonlar (Periyot)
         const buttonCollector = msg.createMessageComponentCollector({
             componentType: ComponentType.Button,
             filter: b => b.user.id === interaction.user.id,

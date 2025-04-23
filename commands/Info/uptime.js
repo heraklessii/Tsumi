@@ -18,17 +18,30 @@ module.exports = {
     category: "Info",
     cooldown: 5,
     data: new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('Botun güncel gecikmesini öğrenirsiniz.'),
+        .setName('uptime')
+        .setDescription('Botun ne kadar süredir çalıştığını öğrenirsiniz.'),
 
     run: async (client, interaction) => {
-        const ping = client.ws.ping;
+        const uptime = formatDuration(process.uptime() * 1000);
         const embed = new EmbedBuilder()
             .setColor(client.color)
-            .setTitle('🏓 Pong!')
-            .setDescription(`Bot gecikmesi: **${ping}ms**`)
+            .setTitle('⏱️ Uptime')
+            .setDescription(`Bot çalışma süresi: **${uptime}**`)
             .setTimestamp();
 
         return interaction.reply({ embeds: [embed], ephemeral: true });
     },
 };
+
+function formatDuration(ms) {
+    const seconds = Math.floor((ms / 1000) % 60);
+    const minutes = Math.floor((ms / (1000 * 60)) % 60);
+    const hours   = Math.floor((ms / (1000 * 60 * 60)) % 24);
+    const days    = Math.floor(ms / (1000 * 60 * 60 * 24));
+    return [
+        days    ? `${days} gün`    : null,
+        hours   ? `${hours} saat`  : null,
+        minutes ? `${minutes} dakika` : null,
+        seconds ? `${seconds} saniye` : null,
+    ].filter(Boolean).join(', ');
+}
