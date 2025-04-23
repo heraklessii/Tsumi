@@ -13,8 +13,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+require('dotenv').config();
 const mongoose = require('mongoose');
-
 module.exports = (client) => {
 
     mongoose.connect(process.env.MONGO || "mongodb://localhost:27017/")
