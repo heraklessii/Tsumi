@@ -18,6 +18,8 @@
   <a href="#-kurulum">Kurulum</a>
   •
   <a href="#-özellikler">Özellikler</a>
+    •
+  <a href="#-lisans">Lisans</a>
 </p>
 
 <br>
