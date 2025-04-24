@@ -17,6 +17,7 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const PremiumCode = require('../../models/PremiumCode');
 const PremiumGuild = require('../../models/PremiumGuild');
 const crypto = require('crypto');
+
 module.exports = {
     category: "Kurucu",
     cooldown: 5,
@@ -41,28 +42,27 @@ module.exports = {
             sub.setName('kullan')
                 .setDescription('Premium kodu kullan')
                 .addStringOption(opt =>
-                    opt
-                        .setName('kod')
+                    opt.setName('kod')
                         .setDescription('Premium kodu')
                         .setRequired(true)))
         .addSubcommand(sub =>
             sub.setName('kaldır')
                 .setDescription('Premium iptali')
                 .addStringOption(opt =>
-                    opt
-                        .setName('kod')
+                    opt.setName('kod')
                         .setDescription('Kaldırmak istediğiniz premium kodu')
-                        .setRequired(true))),
+                        .setRequired(true)))
+        .addSubcommand(sub =>
+            sub.setName('durum')
+                .setDescription('Sunucunun premium durumunu gösterir')),
 
     run: async (client, interaction) => {
         const sub = interaction.options.getSubcommand();
 
         // Oluştur
         if (sub === 'oluştur') {
-            if (interaction.user.id !== process.env.DEVELOPERID) return interaction.reply({
-                content: ":x: | Bu komut bot sahibine özeldir!",
-                ephemeral: true,
-            });
+            if (interaction.user.id !== process.env.DEVELOPERID)
+                return interaction.reply({ content: ":x: | Bu komut bot sahibine özeldir!", ephemeral: true });
 
             const days = parseInt(interaction.options.getString('süre'));
             const code = generateCode(8);
@@ -76,9 +76,8 @@ module.exports = {
                 return interaction.reply({ content: ':x: | Bu komudu kullanabilmek için yetkiniz yetersiz.', ephemeral: true });
 
             const existing = await PremiumGuild.findOne({ guildId: interaction.guildId });
-            if (existing) {
+            if (existing)
                 return interaction.reply({ content: ':x: | Bu sunucuda zaten aktif bir premium üyeliğiniz bulunuyor.', ephemeral: true });
-            }
 
             const code = interaction.options.getString('kod');
             const record = await PremiumCode.findOne({ code });
@@ -88,7 +87,7 @@ module.exports = {
             const expiresAt = new Date(Date.now() + record.durationDays * 24 * 60 * 60 * 1000);
             await new PremiumGuild({ guildId: interaction.guildId, code, expiresAt }).save();
             await PremiumCode.deleteOne({ code });
-            return interaction.reply(`🎉 Premium aktif edildi. Sunucunun süresi: ${expiresAt.toLocaleString()}`);
+            return interaction.reply(`🎉 Premium aktif edildi. Bitiş tarihi: <t:${Math.floor(expiresAt.getTime()/1000)}:F> (<t:${Math.floor(expiresAt.getTime()/1000)}:R>)`);
         }
 
         // Kaldır
@@ -103,8 +102,19 @@ module.exports = {
 
             return interaction.reply('✅ Premium başarıyla kaldırıldı.');
         }
+
+        // Durum
+        else if (sub === 'durum') {
+            const record = await PremiumGuild.findOne({ guildId: interaction.guildId });
+            if (!record)
+                return interaction.reply({ content: ':x: | Bu sunucuda aktif premium bulunmuyor.', ephemeral: true });
+
+            const expiresAt = record.expiresAt;
+            return interaction.reply(`🔔 Sunucunun premium bitiş tarihi: <t:${Math.floor(expiresAt.getTime()/1000)}:F> (<t:${Math.floor(expiresAt.getTime()/1000)}:R>)`);
+        }
+        
     }
-}
+};
 
 function generateCode(length = 12) {
     return crypto.randomBytes(length).toString('hex');
