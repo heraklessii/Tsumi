@@ -17,7 +17,6 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const PremiumCode = require('../../models/PremiumCode');
 const PremiumGuild = require('../../models/PremiumGuild');
 const crypto = require('crypto');
-
 module.exports = {
     category: "Kurucu",
     cooldown: 5,

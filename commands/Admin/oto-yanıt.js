@@ -81,7 +81,7 @@ module.exports = {
 
         const sub = interaction.options.getSubcommand();
         const guildId = interaction.guildId;
-
+        
         if (sub === 'ekle') {
             const trigger = interaction.options.getString('mesaj');
             const response = interaction.options.getString('yanit');
