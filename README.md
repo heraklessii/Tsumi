@@ -2,7 +2,7 @@
   <br>
   <a href="https://github.com/heraklessii"><img src="https://media.discordapp.net/attachments/1322565611896963123/1365112651088396330/tsumi.png?ex=680c1fba&is=680ace3a&hm=cfb5e33062cba68ff35a12ae7213bfd0b894d2be30744c0d91aceebebede4e96&=&format=webp&quality=lossless&width=872&height=872" height="200" alt="Discord.js v14 Bot"></a>
   <br>
-   Discord.js v14 Bot Projesi
+   Tsumi | Discord.js v14 Bot
   <br>
 </h1>
 
@@ -18,7 +18,7 @@
   <a href="#-kurulum">Kurulum</a>
   •
   <a href="#-özellikler">Özellikler</a>
-    •
+  •
   <a href="#-lisans">Lisans</a>
 </p>
 
