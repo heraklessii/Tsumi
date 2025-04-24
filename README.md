@@ -2,7 +2,7 @@
   <br>
   <a href="https://github.com/heraklessii"><img src="" height="200" alt="Discord.js v14 Bot"></a>
   <br>
-  Açık Kaynak Kodlu Discord.js v14 Bot Projesi
+   Discord.js v14 Bot Projesi
   <br>
 </h1>
 
@@ -49,11 +49,17 @@ npm install
 
 <br>
 
-<h1 align="center"> ✨ Özellikler ✨ </h1>
+## ✨ Özellikler ✨ 
 
-### ⚙️ **Sistemleri Kurmak:**
+### ⚙️ **Kurulum:**
 
 - `/kurulum` komutu ile sistemleri menü ve butonlar ile kolay bir şekilde kur.
 - Dilediğinde yeni bir sistemi ve ayarlarını basitçe ekle/kaldır.
 
-### 📉 **Stats Sistemi:**
+### 📉 **Stats:**
+
+- Devamı zamanla eklenecektir.
+
+## Lisans
+
+- **Tsumi** GPL-3.0 Lisansı ile korunmaktadır.
