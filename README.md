@@ -1,19 +1,19 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/heraklessii"><img src="" height="200" alt="Discord.js v14 Bot"></a>
+  <a href="https://github.com/heraklessii"><img src="https://media.discordapp.net/attachments/1322565611896963123/1365112651088396330/tsumi.png?ex=680c1fba&is=680ace3a&hm=cfb5e33062cba68ff35a12ae7213bfd0b894d2be30744c0d91aceebebede4e96&=&format=webp&quality=lossless&width=872&height=872" height="200" alt="Discord.js v14 Bot"></a>
   <br>
    Discord.js v14 Bot Projesi
   <br>
 </h1>
 
-<p align="center">Stats(Metin/Ses), Logs(Detaylı), Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!</p>
+<p align="center">Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!</p>
 
 <br>
 
 <p align="center">
   <a href="#-bağlantılar">Bağlantılar</a>
   •
-  <a href="#-kaynaklar">Gerekli Kaynaklar</a>
+  <a href="#-kaynaklar">Kaynaklar</a>
   •
   <a href="#-kurulum">Kurulum</a>
   •
@@ -25,7 +25,7 @@
 ## 🔗 Bağlantılar
 
 - 🤖 Tsumi Bot: [Davet Et](https://discord.com/oauth2/authorize?client_id=1144351535753597048&permissions=8&scope=bot%20applications.commands)
-- 🤝 Destek Sunucusu: [Katıl](https://discord.gg/ashii)
+- 🤝 Destek Sunucusu: [Katıl](https://discord.gg/tsumi)
 
 ## 📦 Kaynaklar
 
@@ -43,11 +43,9 @@ cd tsumi
 npm install
 ```
 
-- Dosyaların inmesini bekle.
+- Paketlerin inmesini bekle.
 - `.env.example` dosyasını `.env` olarak değiştir ve doldur.
 - `node .` yazarak botu başlat.
-
-<br>
 
 ## ✨ Özellikler ✨ 
 
@@ -56,7 +54,7 @@ npm install
 - `/kurulum` komutu ile sistemleri menü ve butonlar ile kolay bir şekilde kur.
 - Dilediğinde yeni bir sistemi ve ayarlarını basitçe ekle/kaldır.
 
-### 📉 **Stats:**
+### 📉 Stats:
 
 - Devamı zamanla eklenecektir.
 
