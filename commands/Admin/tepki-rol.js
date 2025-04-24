@@ -107,11 +107,10 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
   run: async (client, interaction) => {
-    
+
     const guildId = interaction.guild.id;
     const sub = interaction.options.getSubcommand();
 
-    // DB’den çeker veya yeni yaratır (sub=ekle değilse varolanı kullanmaya devam eder)
     let guildConfig = await ReactionRole.findOne({ guildId });
     if (!guildConfig && sub !== 'ekle') {
       return interaction.reply({
@@ -120,7 +119,6 @@ module.exports = {
       });
     }
 
-    // Yardımcı: virgülle/boşlukla ayrılan rol ID listelerini parse eder
     const parseList = str => str
       .split(/[\s,]+/)
       .map(x => x.replace(/[<@&>]/g, ''))
@@ -128,17 +126,18 @@ module.exports = {
 
     try {
       switch (sub) {
-        // —————— EKLE ——————
+
         case 'ekle': {
+
           const channel = interaction.options.getChannel('kanal');
           const messageId = interaction.options.getString('mesajid');
 
-          if (!guildConfig) {
+          if (!guildConfig)
             guildConfig = await ReactionRole.create({ guildId, messages: [] });
-          }
-          if (guildConfig.messages.some(m => m.messageId === messageId)) {
+
+          if (guildConfig.messages.some(m => m.messageId === messageId))
             return interaction.reply({ content: 'Bu mesaj zaten kayıtlı.', ephemeral: true });
-          }
+
 
           guildConfig.messages.push({
             messageId,
@@ -162,15 +161,14 @@ module.exports = {
           });
         }
 
-        // —————— SİL ——————
         case 'sil': {
           const messageId = interaction.options.getString('mesajid');
           const before = guildConfig.messages.length;
           guildConfig.messages = guildConfig.messages.filter(m => m.messageId !== messageId);
 
-          if (guildConfig.messages.length === before) {
+          if (guildConfig.messages.length === before)
             return interaction.reply({ content: 'Kayıtlı bir mesaj bulunamadı.', ephemeral: true });
-          }
+
           await guildConfig.save();
 
           return interaction.reply({
@@ -184,14 +182,12 @@ module.exports = {
           });
         }
 
-        // —————— LİSTELE (embed + select menu) ——————
         case 'listele': {
           const list = guildConfig.messages;
           if (list.length === 0) {
             return interaction.reply({ content: 'Hiç tepki‑rol sistemi bulunmuyor.', ephemeral: true });
           }
 
-          // Embed özet
           const summary = list
             .map(m => `• \`${m.messageId}\` (${m.mode})`)
             .join('\n');
@@ -201,12 +197,12 @@ module.exports = {
             .setDescription(summary)
             .setFooter({ text: 'Detay için menüden seçiniz.' });
 
-          // Select menu seçenekleri (max 25)
           const options = list.slice(0, 25).map(m => ({
             label: m.messageId,
             description: `Mod: ${m.mode}`,
             value: m.messageId
           }));
+
           const row = new ActionRowBuilder()
             .addComponents(
               new StringSelectMenuBuilder()
@@ -217,7 +213,6 @@ module.exports = {
 
           await interaction.reply({ embeds: [embed], components: [row], ephemeral: true });
 
-          // Collector: kullanıcı seçtiğinde detay göster
           const filter = i => i.user.id === interaction.user.id && i.customId === 'rr_list_select';
           const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60_000, max: 1 });
 
@@ -226,26 +221,26 @@ module.exports = {
             const cfg = guildConfig.messages.find(m => m.messageId === selectedId);
 
             const detailEmbed = new EmbedBuilder()
-            .setColor(client.color)
-            .setTitle(`Detay: Mesaj ${selectedId}`)
+              .setColor(client.color)
+              .setTitle(`Detay: Mesaj ${selectedId}`)
               .addFields(
-                { name: 'Kanal', value: `<#${cfg.channelId}>`, inline: true },
-                { name: 'Mod', value: `\`${cfg.mode}\``, inline: true },
-                { name: 'Maks Rol', value: cfg.maxRoles?.toString() ?? '—', inline: true },
+                { name: 'Kanal:', value: `<#${cfg.channelId}>`, inline: true },
+                { name: 'Mod:', value: `\`${cfg.mode}\``, inline: true },
+                { name: 'Maks Rol:', value: cfg.maxRoles?.toString() ?? '—', inline: true },
                 {
-                  name: 'Roller', value:
+                  name: 'Roller:', value:
                     cfg.roles.length
                       ? cfg.roles.map(r => `${r.emoji} → <@&${r.roleId}>`).join('\n')
                       : '—'
                 },
                 {
-                  name: 'Beyaz Liste', value:
+                  name: 'Beyaz Liste:', value:
                     cfg.whitelistRoles.length
                       ? cfg.whitelistRoles.map(r => `<@&${r}>`).join(', ')
                       : '—'
                 },
                 {
-                  name: 'Kara Liste', value:
+                  name: 'Kara Liste:', value:
                     cfg.blacklistRoles.length
                       ? cfg.blacklistRoles.map(r => `<@&${r}>`).join(', ')
                       : '—'
@@ -259,7 +254,6 @@ module.exports = {
           return;
         }
 
-        // —————— EMOJI EKLE ——————
         case 'emoji-ekle': {
           const messageId = interaction.options.getString('mesajid');
           const emoji = interaction.options.getString('emoji');
@@ -286,7 +280,6 @@ module.exports = {
           });
         }
 
-        // —————— EMOJI SİL ——————
         case 'emoji-sil': {
           const messageId = interaction.options.getString('mesajid');
           const emoji = interaction.options.getString('emoji');
@@ -314,7 +307,6 @@ module.exports = {
           });
         }
 
-        // —————— AYARLA ——————
         case 'ayarla': {
           const messageId = interaction.options.getString('mesajid');
           const mode = interaction.options.getString('mod');
@@ -349,6 +341,7 @@ module.exports = {
         }
 
       }
+
     } catch (err) { }
 
   }

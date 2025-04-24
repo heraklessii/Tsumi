@@ -37,13 +37,14 @@ module.exports = {
                 .addUserOption(opt => opt.setName('kişi').setDescription('Hedef kullanıcı').setRequired(true))
                 .addIntegerOption(opt => opt.setName('miktar').setDescription('Puan miktarı').setRequired(true))),
     run: async (client, interaction) => {
-        
+
         const setting = await ReputationSettings.findOne({ guildId: interaction.guild.id })
         const sub = interaction.options.getSubcommand();
 
-        if (!setting?.sistemDurumu) return interaction.reply({ content: 'Rep sistemi kapalı.', ephemeral: true });
+        if (!setting?.sistemDurumu) return interaction.reply({ content: ':x: | Rep sistemi kapalı.', ephemeral: true });
 
         if (sub === 'ayarla') {
+
             const puan = interaction.options.getInteger('puan');
             const rol = interaction.options.getRole('rol');
             setting.rewards = setting.rewards || [];
@@ -51,7 +52,8 @@ module.exports = {
             if (existing) existing.roles.push(rol.id);
             else setting.rewards.push({ points: puan, roles: [rol.id] });
             await setting.save();
-            return interaction.reply({ content: `${puan} puan için rol ödülü ayarlandı: <@&${rol.id}>`, ephemeral: true });
+            return interaction.reply({ content: `✅ | ${puan} puan için rol ödülü ayarlandı: <@&${rol.id}>`, ephemeral: true });
+
         }
 
         const target = interaction.options.getUser('kişi');
@@ -63,6 +65,7 @@ module.exports = {
         else repUser.points = Math.max(0, repUser.points - miktar);
         await repUser.save();
 
+        // Rol ödülü ver/al.
         if (setting.rewards?.length) {
             const member = await interaction.guild.members.fetch(target.id);
             for (const reward of setting.rewards) {
@@ -78,10 +81,12 @@ module.exports = {
 
         await interaction.reply({
             content: sub === 'ver'
-                ? `${miktar} rep ${target.tag} kullanıcısına verildi!`
-                : `${miktar} rep ${target.tag} kullanıcısından alındı!`, ephemeral: true
+                ? `✅ | **${miktar} rep** ${target} kullanıcısına verildi!`
+                : `✅ | **${miktar} rep** ${target} kullanıcısından alındı!`, ephemeral: true
         });
+
         await updateLeaderboard(interaction.guild, setting.topChannelId);
+
     }
 };
 
@@ -96,11 +101,12 @@ async function updateLeaderboard(guild, channelId) {
 
     const embed = new EmbedBuilder()
         .setTitle("🏆 Sunucu Rep Sıralaması")
+        .setThumbnail(guild.iconURL({ dynamic: true }))
         .setColor("Gold")
         .setDescription(repUsers.map((u, i) => `**${i + 1}.** <@${u.userId}> - \`${u.points}\` rep`).join("\n"))
         .setTimestamp();
 
-    const messages = await channel.messages.fetch({ limit: 10 });
+    const messages = await channel.messages.fetch({ limit: 2 });
     const botMessage = messages.find(m => m.author.id === guild.client.user.id && m.embeds.length > 0);
 
     if (botMessage) await botMessage.edit({ embeds: [embed] });

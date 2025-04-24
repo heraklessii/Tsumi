@@ -24,22 +24,18 @@ const Stats = require('../../models/Stats');
 const moment = require('moment');
 
 module.exports = {
+    category: "Utility",
+    cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('stats')
         .setDescription('Kullanıcının mesaj ve ses istatistiklerini gösterir.')
-        .addUserOption(opt =>
-            opt.setName('kullanıcı')
-                .setDescription('İstatistiklerini görmek istediğin kullanıcı')),
+        .addUserOption(opt => opt.setName('kullanıcı').setDescription('İstatistiklerini görmek istediğin kullanıcı')),
     run: async (client, interaction) => {
-        
+
         const user = interaction.options.getUser('kullanıcı') || interaction.user;
         const stats = await Stats.findOne({ userId: user.id, guildId: interaction.guild.id });
-        if (!stats)
-            return interaction.reply({ content: 'Kullanıcıya ait istatistik bulunamadı.', ephemeral: true });
+        if (!stats) return interaction.reply({ content: ':x: | Kullanıcıya ait istatistik bulunamadı.', ephemeral: true });
 
-        // ————————————————————————————————
-        // 1️⃣ Genel Embed & Butonlar
-        // ————————————————————————————————
         const todayKey = new Date().toISOString().split('T')[0];
         const weekKey = moment().isoWeek().toString();
 
@@ -76,15 +72,14 @@ module.exports = {
             fetchReply: true
         });
 
-        // ————————————————————————————————
-        // 2️⃣ “Metin” Menüsü Tanımı
-        // ————————————————————————————————
         const buildTextMenu = () => {
+
             // Kanal bazlı toplam mesaj sayısı
             const counts = {};
             for (const [chId, chData] of stats.channelMessages) {
                 if (chData.total > 0) counts[chId] = chData.total;
             }
+
             const sorted = Object.entries(counts)
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 5);
@@ -113,16 +108,15 @@ ${list}
             new ButtonBuilder().setCustomId('stats_back_main').setLabel('↩️ Geri Dön').setStyle(ButtonStyle.Primary)
         );
 
-        // ————————————————————————————————
-        // 3️⃣ “Ses” Menüsü Tanımı
-        // ————————————————————————————————
         const buildVoiceMenu = () => {
+
             // Kanal bazlı toplam ses süresi (dk)
             const counts = {};
             for (const [chId, chData] of stats.channelVoice) {
                 const mins = Math.floor(chData.total / 60);
                 if (mins > 0) counts[chId] = mins;
             }
+
             const sorted = Object.entries(counts)
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 5);
@@ -151,9 +145,6 @@ ${list}
             new ButtonBuilder().setCustomId('stats_back_main').setLabel('↩️ Geri Dön').setStyle(ButtonStyle.Primary)
         );
 
-        // ————————————————————————————————
-        // 4️⃣ Collector ve Alt Menü İşlemleri
-        // ————————————————————————————————
         const collector = msg.createMessageComponentCollector({
             filter: i => i.user.id === interaction.user.id,
             time: 120000
@@ -255,5 +246,6 @@ ${list}
         collector.on('end', () => {
             interaction.editReply({ components: [] }).catch(() => { });
         });
+
     }
 };

@@ -22,6 +22,7 @@ module.exports = {
         .setDescription('Botun ne kadar süredir çalıştığını öğrenirsiniz.'),
 
     run: async (client, interaction) => {
+        
         const uptime = formatDuration(process.uptime() * 1000);
         const embed = new EmbedBuilder()
             .setColor(client.color)
@@ -30,6 +31,7 @@ module.exports = {
             .setTimestamp();
 
         return interaction.reply({ embeds: [embed], ephemeral: true });
+
     },
 };
 

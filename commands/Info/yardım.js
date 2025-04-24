@@ -26,14 +26,14 @@ module.exports = {
 
         const categoryEmojis = {
             Admin: '⚙️',
-            Developer: '👑',
             Info: '🛡️',
-            Stats: '🎉',
             Utility: '🛠️',
         };
 
         const categoriesPath = path.join(__dirname, '..');
-        const categories = fs.readdirSync(categoriesPath);
+        const categories = fs
+            .readdirSync(categoriesPath)
+            .filter(category => category !== 'Developer');
 
         const categoryOptions = categories.map(category => ({
             label: `${categoryEmojis[category] || ''} ${category}`,

@@ -29,6 +29,10 @@ const SettingsSchema = new Schema({
     type: String,
     default: null
   },
+  logChannel: {
+    type: String,
+    default: null
+  },
   management: [{
     roleId: {
       type: String,

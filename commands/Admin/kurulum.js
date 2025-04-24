@@ -39,7 +39,7 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
   run: async (client, interaction) => {
-    // --- 1️⃣ Ana Menü ---
+
     const selectMenu = new StringSelectMenuBuilder()
       .setCustomId('ayarlar')
       .setPlaceholder('Listeden bir sistem seçiniz.')
@@ -91,7 +91,6 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
       time: 300000
     });
 
-    // --- 2️⃣ Menü Seçimi ---
     menuCollector.on('collect', async i => {
       if (i.user.id !== interaction.user.id) return;
       await i.deferUpdate();
@@ -141,7 +140,6 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
 
         const sDurum = cfg.sistemDurumu ? '✅' : '❌';
         const gRapor = cfg.gunlukRaporDurumu ? '✅' : '❌';
-        const hRapor = cfg.haftalıkRaporDurumu ? '✅' : '❌';
         const logCh = cfg.logChannelId ? `<#${cfg.logChannelId}>` : '❌';
 
         const statsRow = new ActionRowBuilder().addComponents(
@@ -154,10 +152,6 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
             .setLabel('Günlük Rapor')
             .setStyle(gRapor === '✅' ? ButtonStyle.Success : ButtonStyle.Danger),
           new ButtonBuilder()
-            .setCustomId('st_haftalikrapor')
-            .setLabel('Haftalık Rapor')
-            .setStyle(hRapor === '✅' ? ButtonStyle.Success : ButtonStyle.Danger),
-          new ButtonBuilder()
             .setCustomId('st_logkanali')
             .setLabel('Log Kanalı Ayarla')
             .setStyle(ButtonStyle.Secondary)
@@ -169,7 +163,6 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
           .addFields(
             { name: 'Sistem Durumu', value: sDurum, inline: true },
             { name: 'Günlük Rapor', value: gRapor, inline: true },
-            { name: 'Haftalık Rapor', value: hRapor, inline: true },
             { name: 'Log Kanalı', value: logCh, inline: true }
           )
           .setFooter({ text: `Bu menü 5 dakika sonra devre dışı olacaktır.` });
@@ -247,7 +240,6 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
 
     });
 
-    // --- 3️⃣ Buton İşleyicileri ---
     buttonCollector.on('collect', async i => {
       if (i.user.id !== interaction.user.id) return;
       await i.deferReply({ ephemeral: true });
@@ -296,14 +288,13 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
         await cfg.save();
         return i.editReply({ content: `\`⚙️\` | Stats Sistemi ${cfg.sistemDurumu ? 'aktif' : 'pasif'}.`, ephemeral: true });
       }
-      if (i.customId === 'st_gunlukrapor' || i.customId === 'st_haftalikrapor') {
+      if (i.customId === 'st_gunlukrapor') {
         const cfg = await StatsSettings.findOne({ guildId: interaction.guild.id })
           || await StatsSettings.create({ guildId: interaction.guild.id });
-        if (i.customId === 'st_gunlukrapor') cfg.gunlukRaporDurumu = !cfg.gunlukRaporDurumu;
-        else cfg.haftalıkRaporDurumu = !cfg.haftalıkRaporDurumu;
+        cfg.gunlukRaporDurumu = !cfg.gunlukRaporDurumu;
         await cfg.save();
-        const which = i.customId === 'st_gunlukrapor' ? 'Günlük Rapor' : 'Haftalık Rapor';
-        const state = i.customId === 'st_gunlukrapor' ? cfg.gunlukRaporDurumu : cfg.haftalıkRaporDurumu;
+        const which = 'Günlük Rapor';
+        const state = cfg.gunlukRaporDurumu;
         return i.editReply({ content: `\`📅\` | ${which} ${state ? 'aktif' : 'pasif'}.`, ephemeral: true });
       }
       if (i.customId === 'st_logkanali') {
@@ -470,7 +461,6 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
 
     });
 
-    // Süre dolunca menüyü pasifleştir
     const expiredEmbed = new EmbedBuilder()
       .setColor(client.red)
       .setDescription('`⚙️` | Ayar menüsü süresi doldu.')
@@ -478,5 +468,6 @@ Her menüye girdikten sonra butonlarla konfigürasyon yapabilirsiniz.`)
 
     menuCollector.on('end', () => ayar.edit({ embeds: [expiredEmbed], components: [] }));
     buttonCollector.on('end', () => ayar.edit({ embeds: [expiredEmbed], components: [] }));
+
   },
 };

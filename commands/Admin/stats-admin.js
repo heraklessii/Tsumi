@@ -28,6 +28,8 @@ const Stats = require('../../models/Stats');
 const moment = require('moment');
 
 module.exports = {
+    category: "Admin",
+    cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('stats-admin')
         .setDescription('Eski günlük/haftalık kayıtları temizler.')
@@ -65,7 +67,6 @@ module.exports = {
             await i.deferUpdate();
             state.target = i.values[0]; // 'guild' veya 'user'
 
-            // Eğer Kullanıcı seçildiyse, ID isteyelim
             if (state.target === 'user') {
                 const askUserEmbed = new EmbedBuilder()
                     .setTitle('➡️ Kullanıcı Seçimi')

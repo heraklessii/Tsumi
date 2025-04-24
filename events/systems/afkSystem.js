@@ -39,7 +39,6 @@ module.exports = {
 
             await Afk.deleteOne({ userID });
 
-            // Nick düzeltme
             try {
                 const original = message.member.displayName.replace(/^AFK \|\s?/, "");
                 if (original !== message.member.displayName) {

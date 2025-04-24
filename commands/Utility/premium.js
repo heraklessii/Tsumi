@@ -18,7 +18,7 @@ const PremiumCode = require('../../models/PremiumCode');
 const PremiumGuild = require('../../models/PremiumGuild');
 const crypto = require('crypto');
 module.exports = {
-    category: "Kurucu",
+    category: "Utility",
     cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('premium')
@@ -81,12 +81,12 @@ module.exports = {
             const code = interaction.options.getString('kod');
             const record = await PremiumCode.findOne({ code });
             if (!record)
-                return interaction.reply({ content: 'Geçersiz veya kullanılmış kod.', ephemeral: true });
+                return interaction.reply({ content: ':x: | Geçersiz veya kullanılmış kod.', ephemeral: true });
 
             const expiresAt = new Date(Date.now() + record.durationDays * 24 * 60 * 60 * 1000);
             await new PremiumGuild({ guildId: interaction.guildId, code, expiresAt }).save();
             await PremiumCode.deleteOne({ code });
-            return interaction.reply(`🎉 Premium aktif edildi. Bitiş tarihi: <t:${Math.floor(expiresAt.getTime()/1000)}:F> (<t:${Math.floor(expiresAt.getTime()/1000)}:R>)`);
+            return interaction.reply(`🎉 Premium aktif edildi. Bitiş tarihi: <t:${Math.floor(expiresAt.getTime() / 1000)}:F> (<t:${Math.floor(expiresAt.getTime() / 1000)}:R>)`);
         }
 
         // Kaldır
@@ -109,9 +109,9 @@ module.exports = {
                 return interaction.reply({ content: ':x: | Bu sunucuda aktif premium bulunmuyor.', ephemeral: true });
 
             const expiresAt = record.expiresAt;
-            return interaction.reply(`🔔 Sunucunun premium bitiş tarihi: <t:${Math.floor(expiresAt.getTime()/1000)}:F> (<t:${Math.floor(expiresAt.getTime()/1000)}:R>)`);
+            return interaction.reply(`🔔 Sunucunun premium bitiş tarihi: <t:${Math.floor(expiresAt.getTime() / 1000)}:F> (<t:${Math.floor(expiresAt.getTime() / 1000)}:R>)`);
         }
-        
+
     }
 };
 

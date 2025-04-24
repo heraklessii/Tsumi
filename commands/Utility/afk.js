@@ -16,6 +16,8 @@
 const { SlashCommandBuilder } = require("discord.js");
 const Afk = require("../../models/AfkData");
 module.exports = {
+    category: "Utility",
+    cooldown: 5,
     data: new SlashCommandBuilder()
         .setName("afk")
         .setDescription("AFK modunu açar/kapatır.")

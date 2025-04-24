@@ -49,7 +49,8 @@ module.exports = {
             .setDescription(description)
             .setTimestamp();
 
-        return interaction.reply({ embeds: [embed], ephemeral: false });
+        return interaction.reply({ embeds: [embed], ephemeral: true });
+        
     },
 };
 

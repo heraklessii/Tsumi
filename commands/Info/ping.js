@@ -22,6 +22,7 @@ module.exports = {
         .setDescription('Botun güncel gecikmesini öğrenirsiniz.'),
 
     run: async (client, interaction) => {
+        
         const ping = client.ws.ping;
         const embed = new EmbedBuilder()
             .setColor(client.color)
@@ -30,5 +31,6 @@ module.exports = {
             .setTimestamp();
 
         return interaction.reply({ embeds: [embed], ephemeral: true });
+
     },
 };

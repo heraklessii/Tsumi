@@ -17,6 +17,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const ReputationUser = require('../../models/ReputationUser');
 const ReputationSettings = require('../../models/ReputationSettings');
 module.exports = {
+    category: "Utility",
+    cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('rep')
         .setDescription('Bir kullanıcıya rep ver')
@@ -49,6 +51,7 @@ module.exports = {
 
         await interaction.reply({ content: `✅ | <@${receiver.id}> kullanıcısına rep verildi!`, ephemeral: false });
         await updateLeaderboard(interaction.guild, setting.topChannelId);
+
     }
 };
 
@@ -63,6 +66,7 @@ async function updateLeaderboard(guild, channelId) {
 
     const embed = new EmbedBuilder()
         .setTitle("🏆 Sunucu Rep Sıralaması")
+        .setThumbnail(guild.iconURL({ dynamic: true }))
         .setColor("Gold")
         .setDescription(repUsers.map((u, i) => `**${i + 1}.** <@${u.userId}> - \`${u.points}\` rep`).join("\n"))
         .setTimestamp();

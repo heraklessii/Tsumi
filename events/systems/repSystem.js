@@ -19,6 +19,7 @@ const ReputationSettings = require("../../models/ReputationSettings");
 module.exports = {
   name: Events.MessageCreate,
   async execute(message) {
+
     if (!message.guild || message.author.bot) return;
 
     const setting = await ReputationSettings.findOne({ guildId: message.guild.id });
@@ -102,6 +103,7 @@ async function updateLeaderboard(guild, channelId) {
   const embed = new EmbedBuilder()
     .setTitle("🏆 Sunucu Rep Sıralaması")
     .setColor("Gold")
+    .setThumbnail(guild.iconURL({ dynamic: true }))
     .setDescription(
       repUsers.map((u, i) => `**${i + 1}.** <@${u.userId}> - \`${u.points}\` rep`).join("\n")
     )

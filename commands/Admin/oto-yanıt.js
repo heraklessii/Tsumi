@@ -81,8 +81,9 @@ module.exports = {
 
         const sub = interaction.options.getSubcommand();
         const guildId = interaction.guildId;
-        
+
         if (sub === 'ekle') {
+
             const trigger = interaction.options.getString('mesaj');
             const response = interaction.options.getString('yanit');
             const channel = interaction.options.getChannel('kanal');
@@ -90,19 +91,21 @@ module.exports = {
             const last = await AutoReply.find({ guildId }).sort({ autoId: -1 }).limit(1);
             const nextId = last.length ? last[0].autoId + 1 : 1;
             await AutoReply.create({ guildId, autoId: nextId, trigger, response, channelId });
-            return interaction.reply({ content: `✅ Otomatik yanıt eklendi. ID: **${nextId}**${channelId ? ` | Kanal: <#${channelId}>` : ''}`, ephemeral: true });
+            return interaction.reply({ content: `✅ | Otomatik yanıt eklendi. ID: **${nextId}**${channelId ? ` | Kanal: <#${channelId}>` : ''}`, ephemeral: true });
 
         }
 
         else if (sub === 'kaldır') {
+
             const id = interaction.options.getInteger('id');
             const res = await AutoReply.findOneAndDelete({ guildId, autoId: id });
             if (!res) return interaction.reply({ content: `⚠️ ID **${id}** bulunamadı.`, ephemeral: true });
-            return interaction.reply({ content: `✅ ID **${id}** kaldırıldı.`, ephemeral: true });
+            return interaction.reply({ content: `✅ | ID **${id}** kaldırıldı.`, ephemeral: true });
 
         }
 
         else if (sub === 'ayarla') {
+
             const id = interaction.options.getInteger('id');
             const embedOpt = interaction.options.getBoolean('embed');
             const res = await AutoReply.findOneAndUpdate(
@@ -110,14 +113,17 @@ module.exports = {
                 { embed: embedOpt },
                 { new: true }
             );
-            if (!res) return interaction.reply({ content: `⚠️ ID **${id}** bulunamadı.`, ephemeral: true });
-            return interaction.reply({ content: `✅ ID **${id}** için embed: **${embedOpt}** olarak ayarlandı.`, ephemeral: true });
+
+            if (!res) return interaction.reply({ content: `:x: | ID **${id}** bulunamadı.`, ephemeral: true });
+            return interaction.reply({ content: `✅ | ID **${id}** için embed: **${embedOpt}** olarak ayarlandı.`, ephemeral: true });
 
         }
 
         else if (sub === 'liste') {
+
             const list = await AutoReply.find({ guildId }).sort({ autoId: 1 });
-            if (!list.length) return interaction.reply({ content: '⚠️ Henüz otomatik yanıt eklenmemiş.', ephemeral: true });
+            if (!list.length) return interaction.reply({ content: ':x: | Henüz otomatik yanıt eklenmemiş.', ephemeral: true });
+
             const embed = new EmbedBuilder()
                 .setTitle('Otomatik Yanıt Listesi')
                 .setColor(client.color)
@@ -128,11 +134,13 @@ module.exports = {
                     ` | **Durum:** ${r.enabled ? 'Açık' : 'Kapalı'}` +
                     ` | **Kanal:** ${r.channelId ? `<#${r.channelId}>` : 'Her Kanal'}`
                 ).join('\n'));
+
             return interaction.reply({ embeds: [embed], ephemeral: true });
 
         }
 
         else if (sub === 'aç' || sub === 'kapat') {
+
             const id = interaction.options.getInteger('id');
             const enable = sub === 'aç';
             const res = await AutoReply.findOneAndUpdate(
@@ -140,8 +148,10 @@ module.exports = {
                 { enabled: enable },
                 { new: true }
             );
-            if (!res) return interaction.reply({ content: `⚠️ ID **${id}** bulunamadı.`, ephemeral: true });
-            return interaction.reply({ content: `✅ ID **${id}** için durum: **${enable ? 'Açık' : 'Kapalı'}** olarak güncellendi.`, ephemeral: true });
+
+            if (!res) return interaction.reply({ content: `:x: | ID **${id}** bulunamadı.`, ephemeral: true });
+            return interaction.reply({ content: `✅ | ID **${id}** için durum: **${enable ? 'Açık' : 'Kapalı'}** olarak güncellendi.`, ephemeral: true });
+
         }
 
     }
