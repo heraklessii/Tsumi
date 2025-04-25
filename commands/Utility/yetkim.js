@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const Group = require('../../models/YGroup');
 const Progress = require('../../models/YProgress');
 module.exports = {
@@ -25,10 +25,10 @@ module.exports = {
 
     run: async (client, interaction) => {
 
-        const prog = await Progress.findOne({ guildId, userId: interaction.user.id });
+        const prog = await Progress.findOne({ guildId: interaction.guild.id, userId: interaction.user.id });
         if (!prog) return interaction.reply({ content: ':x: | Henüz bir yetki grubuna başlamadınız veya yetkili değilsiniz.', ephemeral: true });
 
-        const grp = await Group.findOne({ guildId, name: prog.groupName });
+        const grp = await Group.findOne({ guildId: interaction.guild.id, name: prog.groupName });
         if (!grp) return interaction.reply({ content: ':x: | Grup verisi bulunamadı.', ephemeral: true });
 
         const requiredXP = Math.floor(

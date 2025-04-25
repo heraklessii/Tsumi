@@ -27,6 +27,7 @@ module.exports = {
         const categoryEmojis = {
             Admin: '⚙️',
             Info: '🛡️',
+            Fun: '🛡️',
             Utility: '🛠️',
         };
 

@@ -43,7 +43,6 @@ client.setMaxListeners(0);
 global.client = client;
 client.commands = new Collection();
 client.cooldowns = new Collection();
-client.aliases = new Collection();
 client.color = "#2b2d32";
 client.red = "#FC6161";
 client.green = "#73D673";

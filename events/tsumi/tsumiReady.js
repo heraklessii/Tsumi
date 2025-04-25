@@ -53,7 +53,7 @@ module.exports = {
     console.log(chalk.blue(`${client.user.tag} olarak giriş yapıldı!`));
 
     // Günlük rapor cron
-    cron.schedule('0 0 * * *', async () => {
+    cron.schedule('59 23 * * *', async () => {
       const date = dayjs().subtract(1, 'day').format('YYYY-MM-DD');
       const settings = await StatsSettings.find({
         sistemDurumu: true,
@@ -152,7 +152,7 @@ module.exports = {
           console.error(chalk.red(`Rapor hatası [${guildId}]:`), error);
         }
       }
-    });
+    }, { timezone: 'Europe/Istanbul' });
 
   }
 };

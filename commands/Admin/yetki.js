@@ -369,7 +369,7 @@ module.exports = {
 
             }
 
-        } catch (err) { return interaction.reply({ content: 'Bir hata oluştu.', ephemeral: true }); }
+        } catch (err) { return interaction.reply({ content: ':x: | Bir hata oluştu.', ephemeral: true }); }
 
     }
 };

@@ -15,7 +15,7 @@
 
 const { Schema, model } = require('mongoose');
 const messageStatsSchema = new Schema({
-  guildId: { type: String, required: true, unique: true },
+  guildId: { type: String, required: true },
   userId: { type: String, required: true },
   totalMessages: { type: Number, default: 0 },
   dailyMessages: { type: Map, of: Number, default: {} },
@@ -26,7 +26,7 @@ const messageStatsSchema = new Schema({
       total: { type: Number, default: 0 },
       daily: { type: Map, of: Number, default: {} },
       weekly: { type: Map, of: Number, default: {} },
-    }),
+    }, { _id: false }),
     default: {}
   },
   totalVoice: { type: Number, default: 0 },
@@ -38,7 +38,7 @@ const messageStatsSchema = new Schema({
       total: { type: Number, default: 0 },
       daily: { type: Map, of: Number, default: {} },
       weekly: { type: Map, of: Number, default: {} },
-    }),
+    }, { _id: false }),
     default: {}
   },
   lastJoin: { type: Date },

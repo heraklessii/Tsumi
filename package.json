@@ -1,7 +1,7 @@
 {
   "name": "tsumi",
   "version": "1.0.0",
-  "description": "Tsumi, heraklessi(HERA) tarafından geliştirilen açık kaynak kodlu Discord projesidir.",
+  "description": "Tsumi, heraklessi(HERA) tarafından geliştirilen açık kaynak kodlu Discord bot projesidir.",
   "main": "index.js",
   "scripts": {
     "test": "node ."
