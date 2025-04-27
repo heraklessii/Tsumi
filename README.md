@@ -41,8 +41,6 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
 - 🛡️ **Yetkili Takip**: Moderatör işlemlerini izler ve raporlar.  
 - ⚙️ **Esnek Kurulum**: `/kurulum` ile menü/buton üzerinden sistem ayarları.  
 
----
-
 ## 🚀 Kurulum
 
 1. Repo’yu klonlayın ve ilgili dizine geçin:
@@ -62,14 +60,10 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
    node .
    ```
 
----
-
 ## 🙌 Katkı
 
 - **heraklessii** — Proje sahibi & ana geliştirici  
 - Katkı sağlamak için *pull request* veya *issue* açabilirsiniz.  
-
----
 
 ## 📜 Lisans
 
