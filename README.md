@@ -23,9 +23,9 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
 
 ## 🔗 Bağlantılar
 
-- 🤖 **Bot Davet**: https://discord.com/oauth2/authorize?client_id=1144351535753597048&permissions=8&scope=bot%20applications.commands  
-- 🤝 **Destek Sunucusu**: https://discord.gg/tsumi  
-- 📦 **GitHub**: https://github.com/heraklessii/Tsumi  
+- 🤖 [**Bot Davet**](https://discord.com/oauth2/authorize?client_id=1144351535753597048&permissions=8&scope=bot%20applications.commands)  
+- 🤝 [**Destek Sunucusu**](https://discord.gg/tsumi)  
+- 📦 [**GitHub**](https://github.com/heraklessii/Tsumi)  
 
 ---
 
