@@ -17,7 +17,7 @@ module.exports = {
     const raw = interaction.options.getString('kişiler');
     const mentions = raw.split(',').map(m => m.trim()).filter(Boolean);
     if (mentions.length > 8) {
-      return interaction.reply({ content: 'En fazla 8 kişi davet edebilirsin!', ephemeral: true });
+      return interaction.reply({ content: ':x: | En fazla 8 kişi davet edebilirsin!', ephemeral: true });
     }
 
     const game = await TruthOrDare.create({
