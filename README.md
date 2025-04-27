@@ -14,7 +14,7 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
 
 <h3 align="center">
 
-[Bağlantılar](#bağlantılar) • [Özellikler](#özellikler) • [Kurulum](#kurulum) • [Katkı](#katkı) • [Lisans](#lisans)  
+🔗 [Bağlantılar](#bağlantılar) • [Özellikler](#özellikler) • [Kurulum](#kurulum) • [Katkı](#katkı) • [Lisans](#lisans)  
 
 </h3>
 
