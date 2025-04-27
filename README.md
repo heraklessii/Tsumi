@@ -15,9 +15,7 @@
 - [Bağlantılar](#bağlantılar)  
 - [Özellikler](#özellikler)  
 - [Kurulum](#kurulum)  
-- [Komutlar](#komutlar)  
-- [Yapılandırma](#yapılandırma)  
-- [Katkıda Bulunanlar](#katkıda-bulunanlar)  
+- [Katkı](#katkı)  
 - [Lisans](#lisans)  
 
 ---
@@ -64,36 +62,14 @@
 
 ---
 
-## Komutlar
-
-| Komut                 | Açıklama                                      |
-| --------------------- | --------------------------------------------- |
-| `/kurulum`            | Sistem kurulum menüsünü açar                  |
-| `/stats`              | Sunucu kullanım istatistiklerini gösterir     |
-| `/oto-yanıt ekle`     | Anahtar kelime ve yanıt ekler                 |
-| `/afk [sebep]`        | AFK moduna geçer                              |
-| `/tepki-rol ayar`     | Tepki rol paneli oluşturur                    |
-| `/yetkili-takip`      | Yetkili işlemlerini gösterir                  |
-
-> **Not:** Daha fazla detay ve komut için `/yardım` komutunu kullanın.
-
----
-
-## Yapılandırma
-
-- **Veritabanı**: `MONGODB_URI` ile MongoDB bağlantısı sağlanır.  
-- **Sahip ID**: `OWNER_ID` ayarı, yalnızca sahibi tarafından kullanılacak komutlar içindir.  
-- **Log Kanalları**: `/logs ayar` komutuyla metin ve ses log kanallarını seçin.  
-
----
-
-## Katkıda Bulunanlar
+## 🙌 Katkı
 
 - **heraklessii** — Proje sahibi & ana geliştirici  
-- Katkı sağlamak için pull request veya issue açabilirsiniz.  
+- Katkı sağlamak için *pull request* veya *issue* açabilirsiniz.  
 
 ---
 
-## Lisans
+## 📜 Lisans
 
-Bu proje **GPL-3.0** lisansı ile korunmaktadır. Detaylar için `LICENSE` dosyasına bakın.
+- Bu proje **GPL-3.0** lisansı ile korunmaktadır. 
+- Detaylar için `LICENSE` dosyasına bakın.
