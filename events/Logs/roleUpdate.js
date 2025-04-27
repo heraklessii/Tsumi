@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const { Events, EmbedBuilder } = require("discord.js");
+const { Events, EmbedBuilder, AuditLogEvent } = require("discord.js");
 const LogsSettings = require("../../models/LogsSettings");
 
 module.exports = {
@@ -62,6 +62,15 @@ module.exports = {
 
             if (!changes.length) return; // Değişiklik yoksa log atma
 
+            let executor;
+            try {
+                const fetchedLogs = await newRole.guild.fetchAuditLogs({ limit: 1, type: AuditLogEvent.RoleUpdate });
+                const auditEntry = fetchedLogs.entries.find(entry => entry.target.id === newRole.id);
+                executor = auditEntry?.executor;
+            } catch {
+                executor = null;
+            }
+
             const embed = new EmbedBuilder()
                 .setTitle("⚙️ ROL GÜNCELLENDİ")
                 .setColor(client.blue)
@@ -71,6 +80,7 @@ module.exports = {
             let description = `
 \`📋\`  Rol:  **${newRole}**
 \`🆔\`  ID:  **${newRole.id}**
+\`✍️\`  Güncelleyen Yetkili:  ${executor ? `<@${executor.id}>` : "❔"}
             `;
 
             changes.forEach(change => {
