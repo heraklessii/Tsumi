@@ -6,11 +6,11 @@
   <br>
 </h1>
 
-<h2 align="center"> 
+<h3 align="center"> 
 
 Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!
 
-</h2>
+</h3>
 
 <br>
 
