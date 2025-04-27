@@ -41,6 +41,8 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
 - 🛡️ **Yetkili Takip**: Moderatör işlemlerini izler ve raporlar.  
 - ⚙️ **Esnek Kurulum**: `/kurulum` ile menü/buton üzerinden sistem ayarları.  
 
+<br>
+
 ## 🚀 Kurulum
 
 1. Repo’yu klonlayın ve ilgili dizine geçin:
@@ -53,7 +55,7 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
    npm install
    ```
 3. Ortam değişkenlerini ayarlayın:
-   - `.env.example` dosyasını kopyalayıp `.env` olarak yeniden adlandırın.  
+   - `.env.example` dosyasını `.env` olarak yeniden adlandırın.  
    - Değişkenleri doldurun.
 4. Botu çalıştırın:
    ```bash
