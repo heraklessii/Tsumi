@@ -57,12 +57,12 @@
 3. Ortam değişkenlerini ayarlayın:
    - `.env.example` dosyasını kopyalayıp `.env` olarak yeniden adlandırın.  
    - Aşağıdaki değişkenleri doldurun:
-     ```env
-TOKEN = Bot tokeni.
-LOGS = ErrorHandler için.
-DEVELOPERID = ID'niz.
-BOT_BANNER_URL = Şart değil.
-MONGO = Mongo bağlantısı.
+     ```bash
+    TOKEN = Bot tokeni.
+    LOGS = ErrorHandler için.
+    DEVELOPERID = ID'niz.
+    BOT_BANNER_URL = Şart değil.
+    MONGO = Mongo bağlantısı.
      ```
 4. Botu çalıştırın:
    ```bash
