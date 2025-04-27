@@ -19,7 +19,7 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
 - [Katkı](#katkı)  
 - [Lisans](#lisans)  
 
----
+<br>
 
 ## 🔗 Bağlantılar
 
@@ -27,7 +27,7 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
 - 🤝 [**Destek Sunucusu**](https://discord.gg/tsumi)  
 - 📦 [**GitHub**](https://github.com/heraklessii/Tsumi)  
 
----
+<br>
 
 ## ✨ Özellikler
 
