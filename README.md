@@ -6,19 +6,19 @@
   <br>
 </h1>
 
-<div align="center"> 
+<h2 align="center"> 
 
 Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!
 
-</div>
+</h2>
 
 <br>
 
-<h2 align="center">
+<h3 align="center">
 
 [Bağlantılar](#bağlantılar) . [Özellikler](#özellikler) . [Kurulum](#kurulum) . [Katkı](#katkı) . [Lisans](#lisans)  
 
-</h2>
+</h3>
 
 <br>
 
