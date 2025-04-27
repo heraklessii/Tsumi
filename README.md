@@ -7,7 +7,7 @@
 </h1>
 
 <div align="center">
-**Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!**
+Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!
 </div>
 ---
 
