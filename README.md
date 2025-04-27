@@ -6,60 +6,101 @@
   <br>
 </h1>
 
-<p align="center">Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!</p>
+**Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!**
 
-<br>
+---
 
-<p align="center">
-  <a href="#-bağlantılar">Bağlantılar</a>
-  •
-  <a href="#-kaynaklar">Kaynaklar</a>
-  •
-  <a href="#-kurulum">Kurulum</a>
-  •
-  <a href="#-özellikler">Özellikler</a>
-  •
-  <a href="#-lisans">Lisans</a>
-</p>
+## İçindekiler
 
-<br>
+- [Bağlantılar](#bağlantılar)  
+- [Özellikler](#özellikler)  
+- [Kurulum](#kurulum)  
+- [Komutlar](#komutlar)  
+- [Yapılandırma](#yapılandırma)  
+- [Katkıda Bulunanlar](#katkıda-bulunanlar)  
+- [Lisans](#lisans)  
 
-## 🔗 Bağlantılar
+---
 
-- 🤖 Tsumi Bot: [Davet Et](https://discord.com/oauth2/authorize?client_id=1144351535753597048&permissions=8&scope=bot%20applications.commands)
-- 🤝 Destek Sunucusu: [Katıl](https://discord.gg/tsumi)
+## Bağlantılar
 
-## 📦 Kaynaklar
+- 🤖 **Bot Davet**: https://discord.com/oauth2/authorize?client_id=1144351535753597048&permissions=8&scope=bot%20applications.commands  
+- 🤝 **Destek Sunucusu**: https://discord.gg/tsumi  
+- 📦 **GitHub**: https://github.com/heraklessii/Tsumi  
 
-- [Node.js](https://nodejs.org/en/)
-- [Git](https://git-scm.com/downloads)
-- [MongoDB](https://www.mongodb.com)
+---
 
-## 🚀 Kurulum
+## Özellikler
 
-- Terminal'i aç ve aşağıdaki komutları çalıştır.
+- 📊 **Stats**: Sunucu ve kullanıcı bazlı kullanım istatistikleri.  
+- 📝 **Logs**: Mesaj silme/güncelleme, üye katılma/ayrılma vb. logları.  
+- 🤖 **Oto Yanıt**: Belirlenen anahtar kelimelere otomatik yanıt.  
+- ⏳ **AFK Sistemi**: AFK moduna geçen kullanıcıları işaretler, dönüş mesajı bırakır.  
+- 🔊 **Özel Sesli Oda**: Gir Oluştur ile geçici ses kanalı açar, boş kalınca silinir.  
+- 🎫 **Tepki Rol**: Emojilere tepki veren kullanıcılara rol atama.  
+- 🛡️ **Yetkili Takip**: Moderatör işlemlerini izler ve raporlar.  
+- ⚙️ **Esnek Kurulum**: `/kurulum` ile menü/buton üzerinden sistem ayarları.  
 
-```
-git clone https://github.com/heraklessii/Tsumi.git
-cd tsumi
-npm install
-```
+---
 
-- Paketlerin inmesini bekle.
-- `.env.example` dosyasını `.env` olarak değiştir ve doldur.
-- `node .` yazarak botu başlat.
+## Kurulum
 
-## ✨ Özellikler ✨ 
+1. Repo’yu klonlayın ve ilgili dizine geçin:
+   ```bash
+   git clone https://github.com/heraklessii/Tsumi.git
+   cd Tsumi
+   ```
+2. Gerekli paketleri yükleyin:
+   ```bash
+   npm install
+   ```
+3. Ortam değişkenlerini ayarlayın:
+   - `.env.example` dosyasını kopyalayıp `.env` olarak yeniden adlandırın.  
+   - Aşağıdaki değişkenleri doldurun:
+     ```env
+TOKEN = Bot tokeni.
+LOGS = ErrorHandler için.
+DEVELOPERID = ID'niz.
+BOT_BANNER_URL = Şart değil.
+MONGO = Mongo bağlantısı.
+     ```
+4. Botu çalıştırın:
+   ```bash
+   npm run start
+   ```
 
-### ⚙️ **Kurulum:**
+---
 
-- `/kurulum` komutu ile sistemleri menü ve butonlar ile kolay bir şekilde kur.
-- Dilediğinde yeni bir sistemi ve ayarlarını basitçe ekle/kaldır.
+## Komutlar
 
-### 📉 Stats:
+| Komut                 | Açıklama                                      |
+| --------------------- | --------------------------------------------- |
+| `/kurulum`            | Sistem kurulum menüsünü açar                  |
+| `/stats`              | Sunucu kullanım istatistiklerini gösterir     |
+| `/oto-yanıt ekle`     | Anahtar kelime ve yanıt ekler                 |
+| `/afk [sebep]`        | AFK moduna geçer                              |
+| `/tepki-rol ayar`     | Tepki rol paneli oluşturur                    |
+| `/yetkili-takip`      | Yetkili işlemlerini gösterir                  |
 
-- Devamı zamanla eklenecektir.
+> **Not:** Daha fazla detay ve komut için `/yardım` komutunu kullanın.
+
+---
+
+## Yapılandırma
+
+- **Veritabanı**: `MONGODB_URI` ile MongoDB bağlantısı sağlanır.  
+- **Sahip ID**: `OWNER_ID` ayarı, yalnızca sahibi tarafından kullanılacak komutlar içindir.  
+- **Log Kanalları**: `/logs ayar` komutuyla metin ve ses log kanallarını seçin.  
+
+---
+
+## Katkıda Bulunanlar
+
+- **heraklessii** — Proje sahibi & ana geliştirici  
+- Katkı sağlamak için pull request veya issue açabilirsiniz.  
+
+---
 
 ## Lisans
 
-- **Tsumi** GPL-3.0 Lisansı ile korunmaktadır.
+Bu proje **GPL-3.0** lisansı ile korunmaktadır. Detaylar için `LICENSE` dosyasına bakın.
