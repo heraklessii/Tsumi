@@ -56,17 +56,10 @@
    ```
 3. Ortam değişkenlerini ayarlayın:
    - `.env.example` dosyasını kopyalayıp `.env` olarak yeniden adlandırın.  
-   - Aşağıdaki değişkenleri doldurun:
-     ```bash
-    TOKEN = Bot tokeni.
-    LOGS = ErrorHandler için.
-    DEVELOPERID = ID'niz.
-    BOT_BANNER_URL = Şart değil.
-    MONGO = Mongo bağlantısı.
-     ```
+   - Değişkenleri doldurun.
 4. Botu çalıştırın:
    ```bash
-   npm run start
+   node .
    ```
 
 ---
