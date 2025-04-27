@@ -14,15 +14,11 @@ Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahas
 
 <br>
 
-<h1 align="center">
+<h2 align="center">
 
-- [Bağlantılar](#bağlantılar)  
-- [Özellikler](#özellikler)  
-- [Kurulum](#kurulum)  
-- [Katkı](#katkı)  
-- [Lisans](#lisans)  
+[Bağlantılar](#bağlantılar) . [Özellikler](#özellikler) . [Kurulum](#kurulum) . [Katkı](#katkı) . [Lisans](#lisans)  
 
-</h1>
+</h2>
 
 <br>
 
