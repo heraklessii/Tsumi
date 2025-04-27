@@ -6,8 +6,9 @@
   <br>
 </h1>
 
+<div align="center">
 **Stats, Logs, Oto Yanıt, AFK, Özel Sesli Oda, Tepki Rol, Yetkili Takip ve dahası!**
-
+</div>
 ---
 
 ## İçindekiler
@@ -20,7 +21,7 @@
 
 ---
 
-## Bağlantılar
+## 🔗 Bağlantılar
 
 - 🤖 **Bot Davet**: https://discord.com/oauth2/authorize?client_id=1144351535753597048&permissions=8&scope=bot%20applications.commands  
 - 🤝 **Destek Sunucusu**: https://discord.gg/tsumi  
@@ -28,7 +29,7 @@
 
 ---
 
-## Özellikler
+## ✨ Özellikler
 
 - 📊 **Stats**: Sunucu ve kullanıcı bazlı kullanım istatistikleri.  
 - 📝 **Logs**: Mesaj silme/güncelleme, üye katılma/ayrılma vb. logları.  
@@ -41,7 +42,7 @@
 
 ---
 
-## Kurulum
+## 🚀 Kurulum
 
 1. Repo’yu klonlayın ve ilgili dizine geçin:
    ```bash
